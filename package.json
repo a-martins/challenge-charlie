@@ -17,7 +17,12 @@
   },
   "homepage": "https://github.com/a-martins/challenge-charlie#readme",
   "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "^20.14.9",
-    "typescript": "^5.5.2"
-  }
+    "eslint": "8.56",
+    "typescript": "^5.5.2",
+    "typescript-eslint": "^7.14.1"
+  },
+  "type": "module"
 }

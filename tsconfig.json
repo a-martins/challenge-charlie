@@ -19,5 +19,5 @@
     "outDir": "build"
   },
   "exclude": ["node_modules", "build"],
-  "include": ["src"]
+  "include": ["src", "./eslint.config.js"]
 }

@@ -6,6 +6,12 @@ export default tseslint.config(
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
+    files: ["src/**/*.tests.tsx"],
+    env: {
+      jest: true,
+    },
+  },
+  {
     languageOptions: {
       parserOptions: {
         project: true,

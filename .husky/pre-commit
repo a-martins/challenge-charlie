@@ -1,1 +1,1 @@
-npm lint-fix && npm test
+npm run lint-fix && npm run test

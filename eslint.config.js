@@ -12,6 +12,9 @@ export default tseslint.config(
     },
   },
   {
+    ignores: ["coverage/*"],
+  },
+  {
     languageOptions: {
       parserOptions: {
         project: true,

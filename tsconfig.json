@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "rootDirs": ["src"],
     "baseUrl": "src",
     "allowJs": true,
@@ -16,13 +16,28 @@
     "isolatedModules": true,
     "noEmit": true,
     "resolveJsonModule": true,
-    "outDir": "build"
+    "outDir": "build",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true
   },
-  "exclude": ["node_modules", "build"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "coverage",
+    "webpack.*.js",
+    "*.config.js",
+    "*.test.ts*"
+  ],
   "include": [
     "src",
     "./eslint.config.js",
     "./babel.config.js",
     "./jest.config.ts"
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }

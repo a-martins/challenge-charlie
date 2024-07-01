@@ -1,5 +1,6 @@
+import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "../app";
+import RouterProvider from "../routes/Router";
 
 const rootMock = {
   render: jest.fn(),
@@ -18,6 +19,10 @@ describe("Root DOM", () => {
     require("../index.tsx");
 
     expect(ReactDOM.createRoot).toHaveBeenCalledWith(root);
-    expect(rootMock.render).toHaveBeenCalledWith(<App />);
+    expect(rootMock.render).toHaveBeenCalledWith(
+      <React.StrictMode>
+        <RouterProvider />
+      </React.StrictMode>
+    );
   });
 });

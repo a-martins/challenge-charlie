@@ -2,6 +2,10 @@ import React from "react";
 
 export default class App extends React.Component {
   render() {
-    return <div>Weather App!</div>;
+    return (
+      <div id="app" role="main">
+        Weather App!
+      </div>
+    );
   }
 }

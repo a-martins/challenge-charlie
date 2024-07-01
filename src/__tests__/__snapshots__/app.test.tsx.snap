@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders app component 1`] = `
+<div>
+  <div
+    id="app"
+    role="main"
+  >
+    Weather App!
+  </div>
+</div>
+`;

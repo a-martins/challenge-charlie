@@ -3,6 +3,7 @@
 exports[`renders app component 1`] = `
 <div>
   <div
+    class="sc-aYaIB fVpkfD"
     id="app"
     role="main"
   >

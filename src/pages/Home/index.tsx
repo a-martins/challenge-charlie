@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container } from "./styles";
 
 type Coordinates = {
   latitude: number;
@@ -29,11 +30,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div id="app" role="main">
+    <Container id="app" role="main">
       Weather App!
       <p>latitude: {userLocation?.latitude}</p>
       <p>longitude: {userLocation?.longitude}</p>
-    </div>
+    </Container>
   );
 };
 

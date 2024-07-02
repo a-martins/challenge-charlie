@@ -14,6 +14,7 @@ exports[`renders app component 1`] = `
     <p>
       longitude: 
     </p>
+    <p />
   </div>
 </div>
 `;

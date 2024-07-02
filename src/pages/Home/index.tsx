@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useBackground from "../../queries/useBackground";
 import { Container } from "./styles";
 
 type Coordinates = {
@@ -8,6 +9,8 @@ type Coordinates = {
 
 const Home = () => {
   const [userLocation, setUserLocation] = useState<Coordinates>();
+
+  const { data } = useBackground();
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
@@ -34,6 +37,7 @@ const Home = () => {
       Weather App!
       <p>latitude: {userLocation?.latitude}</p>
       <p>longitude: {userLocation?.longitude}</p>
+      <p>{data?.url}</p>
     </Container>
   );
 };

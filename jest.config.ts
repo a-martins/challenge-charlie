@@ -28,6 +28,9 @@ const config: Config = {
     "!**/styles.ts",
     "!**/*.d.ts",
     "!**/node_modules/**",
+    "!**/src/api/**",
+    "!**/src/pages/**",
+    "!**/server/**",
     "!**/vendor/**",
   ],
 

@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -11,6 +12,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: "src/icons" }],
     }),
+    new Dotenv(),
   ],
   module: {
     rules: [

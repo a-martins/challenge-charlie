@@ -13,13 +13,8 @@ const Home = () => {
   const [userLocation, setUserLocation] = useState<Coordinates>();
   const [textInputValue, setTextInputValue] = useState<string>("");
 
-  const { data: backgroundData, isLoading: isBackgroundLoading } =
-    useBackground();
-  const {
-    data: locationData,
-    isLoading: isLocationLoading,
-    isSuccess,
-  } = useCurrentPlaceName(userLocation);
+  const { data: backgroundData } = useBackground();
+  const { data: locationData } = useCurrentPlaceName(userLocation);
 
   const getUserLocation = () => {
     if (navigator.geolocation) {

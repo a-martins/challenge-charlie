@@ -6,5 +6,5 @@ test("renders app component", () => {
     const { container } = render(<App />);
     expect(container).toMatchSnapshot();
   });
-  expect(screen.getByText("Loading...")).toBeInTheDocument();
+  expect(screen.getByRole("main")).toBeInTheDocument();
 });

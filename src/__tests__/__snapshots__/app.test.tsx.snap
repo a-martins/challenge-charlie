@@ -1,20 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders app component 1`] = `
-<div>
-  <div
-    class="sc-aYaIB fVpkfD"
-    id="app"
-    role="main"
-  >
-    Weather App!
-    <p>
-      latitude: 
-    </p>
-    <p>
-      longitude: 
-    </p>
-    <p />
-  </div>
-</div>
-`;
+exports[`renders app component 1`] = `<div />`;

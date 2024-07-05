@@ -11,12 +11,10 @@ jest.mock("react-dom/client", () => ({
 
 describe("Root DOM", () => {
   test("renders App", () => {
-    const root = document.createElement("div");
+    let root = document.createElement("div");
     root.id = "root";
     document.body.append(root);
-
     require("../index.tsx");
-
     expect(ReactDOM.createRoot).toHaveBeenCalledWith(root);
     expect(rootMock.render).toHaveBeenCalledWith(<App />);
   });

@@ -29,6 +29,7 @@ const config: Config = {
     "!**/*.d.ts",
     "!**/node_modules/**",
     "!**/src/api/**",
+    "!**/src/components/**",
     "!**/src/pages/**",
     "!**/server/**",
     "!**/vendor/**",

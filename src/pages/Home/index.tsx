@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Input from "../../components/Input";
 import useBackground from "../../queries/useBackground";
 import useCurrentPlaceName from "../../queries/useCurrentPlaceName";
+import useWeather from "../../queries/useWeather";
 import { Container } from "./styles";
 
 export type Coordinates = {
@@ -12,9 +13,19 @@ export type Coordinates = {
 const Home = () => {
   const [userLocation, setUserLocation] = useState<Coordinates>();
   const [textInputValue, setTextInputValue] = useState<string>("");
+  const [unit, setUnit] = useState<"metric" | "imperial">("metric");
 
   const { data: backgroundData } = useBackground();
-  const { data: locationData } = useCurrentPlaceName(userLocation);
+  const { data: locationData } = useCurrentPlaceName({
+    latitude: userLocation?.latitude,
+    longitude: userLocation?.longitude,
+  });
+  const { data: weatherData } = useWeather({
+    latitude: userLocation?.latitude,
+    longitude: userLocation?.longitude,
+    units: unit,
+    days: 3,
+  });
 
   const getUserLocation = () => {
     if (navigator.geolocation) {

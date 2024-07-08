@@ -1,13 +1,17 @@
 import { useQuery } from "react-query";
 import getPlaceName, { PlaceName } from "../../api/geocode";
-import { Coordinates } from "../../pages/Home";
 
-const useCurrentPlaceName = (coords: Coordinates | undefined) => {
+export type PlaceQuery = {
+  latitude?: number;
+  longitude?: number;
+};
+
+const useCurrentPlaceName = (query: PlaceQuery | undefined) => {
   return useQuery<PlaceName>({
-    queryKey: ["currentPlaceName", coords?.latitude, coords?.longitude],
+    queryKey: ["currentPlaceName", query?.latitude, query?.longitude],
     queryFn: getPlaceName,
     staleTime: 5 * 60 * 1000,
-    enabled: !!coords?.latitude && !!coords?.longitude,
+    enabled: !!query?.latitude && !!query?.longitude,
   });
 };
 

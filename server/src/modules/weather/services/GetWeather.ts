@@ -7,7 +7,6 @@ type Request = {
   latitude: number;
   longitude: number;
   units: "metric" | "imperial";
-  days: number;
 };
 
 type Weather = {
@@ -29,7 +28,6 @@ class GetWeather {
     latitude,
     longitude,
     units,
-    days,
   }: Request): Promise<WeatherResponse> {
     return new Promise<WeatherResponse>(async (resolve, reject) => {
       try {
@@ -37,7 +35,7 @@ class GetWeather {
         const apiKey = process.env.REACT_APP_OPEN_WEATHER_APIKEY as string;
         const response = (await axios
           .get(
-            `${url}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}&cnt=${days}&lang=pt_br`
+            `${url}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}&cnt=3&lang=pt_br`
           )
           .then((response) => {
             if (response.status === 200) {

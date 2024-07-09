@@ -1,29 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Input from "../../components/Input";
 import WeatherContainer from "../../components/WeatherContainer";
+import {
+  UserLocationContext,
+  UserLocationContextType,
+} from "../../contexts/UserLocationProvider";
 import useBackground from "../../queries/useBackground";
 import useCurrentPlaceName from "../../queries/useCurrentPlaceName";
 import useWeather from "../../queries/useWeather";
 import { Container, MainContainer } from "./styles";
 
-export type Coordinates = {
-  latitude?: number;
-  longitude?: number;
-};
-
 const Home = () => {
-  const [userLocation, setUserLocation] = useState<Coordinates>();
   const [textInputValue, setTextInputValue] = useState<string>("");
   const [unit] = useState<"metric" | "imperial">("metric");
 
+  const { coordinates, setCoordinates } = useContext(
+    UserLocationContext
+  ) as UserLocationContextType;
+
   const { data: backgroundData } = useBackground();
   const { data: locationData } = useCurrentPlaceName({
-    latitude: userLocation?.latitude,
-    longitude: userLocation?.longitude,
+    latitude: coordinates?.latitude,
+    longitude: coordinates?.longitude,
   });
   const { data: weatherData } = useWeather({
-    latitude: userLocation?.latitude,
-    longitude: userLocation?.longitude,
+    latitude: coordinates?.latitude,
+    longitude: coordinates?.longitude,
     unit: unit,
   });
 
@@ -32,7 +34,7 @@ const Home = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setUserLocation({ latitude, longitude });
+          setCoordinates({ latitude, longitude });
         },
         (error) => {
           setTextInputValue("Error getting user location");
@@ -60,11 +62,7 @@ const Home = () => {
   return (
     <MainContainer id="app" role="main" $backgroundUrl={backgroundData?.url}>
       <Container>
-        <Input
-          userLocation={userLocation}
-          setUserLocation={setUserLocation}
-          defaultValue={textInputValue}
-        />
+        <Input defaultValue={textInputValue} />
         <WeatherContainer weathers={weatherData?.weathers} />
       </Container>
     </MainContainer>

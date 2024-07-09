@@ -1,11 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
-import { Coordinates } from "../../pages/Home";
 import Icon from "../Icon";
 import { InputContainer, InputField } from "./styles";
 
 type InputProps = {
-  userLocation?: Coordinates;
-  setUserLocation: Dispatch<SetStateAction<Coordinates | undefined>>;
   defaultValue?: string;
 };
 

@@ -14,7 +14,6 @@ const Container = styled.div<{
     0.8
   );
   padding-top: 8px;
-  padding-bottom: 28px;
 `;
 
 const IconContainer = styled.div`
@@ -38,6 +37,7 @@ const DetailsContainer = styled.div`
   color: white;
   font-size: 18px;
   line-height: 24px;
+  padding-bottom: 28px;
 `;
 
 const SubDetailsContainer = styled.div`

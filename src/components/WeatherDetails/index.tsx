@@ -1,4 +1,3 @@
-import { PropsWithChildren } from "react";
 import { type Weather } from "../../api/weather";
 import Icon from "../../components/Icon";
 import weatherIconDictonary from "../../helpers/WeatherIconDictonaary";
@@ -30,8 +29,7 @@ const WeatherDetails = ({
   description,
   showIcon,
   showDetails,
-  children,
-}: PropsWithChildren<WeatherDetailsProps>) => {
+}: WeatherDetailsProps) => {
   return (
     <Container $red={color.red} $green={color.green} $blue={color.blue}>
       {showIcon ? (

@@ -14,4 +14,8 @@ const Container = styled.div<{ $backgroundUrl?: string }>`
   background-position: center center;
 `;
 
-export { Container };
+const WeatherContainer = styled.div`
+  width: 25%;
+`;
+
+export { Container, WeatherContainer };

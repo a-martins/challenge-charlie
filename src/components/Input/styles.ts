@@ -5,7 +5,6 @@ const InputContainer = styled.div`
   flex-direction: row;
   background-color: rgb(255, 255, 255, 0.8);
   padding: 8px;
-  width: 25%;
 `;
 
 const InputField = styled.input`

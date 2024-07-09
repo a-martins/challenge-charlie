@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Input from "../../components/Input";
+import Weather from "../../components/Weather";
 import useBackground from "../../queries/useBackground";
 import useCurrentPlaceName from "../../queries/useCurrentPlaceName";
 import useWeather from "../../queries/useWeather";
-import { Container } from "./styles";
+import { Container, WeatherContainer } from "./styles";
 
 export type Coordinates = {
   latitude?: number;
@@ -13,7 +14,7 @@ export type Coordinates = {
 const Home = () => {
   const [userLocation, setUserLocation] = useState<Coordinates>();
   const [textInputValue, setTextInputValue] = useState<string>("");
-  const [unit, setUnit] = useState<"metric" | "imperial">("metric");
+  const [unit] = useState<"metric" | "imperial">("metric");
 
   const { data: backgroundData } = useBackground();
   const { data: locationData } = useCurrentPlaceName({
@@ -23,8 +24,7 @@ const Home = () => {
   const { data: weatherData } = useWeather({
     latitude: userLocation?.latitude,
     longitude: userLocation?.longitude,
-    units: unit,
-    days: 3,
+    unit: unit,
   });
 
   const getUserLocation = () => {
@@ -59,11 +59,14 @@ const Home = () => {
 
   return (
     <Container id="app" role="main" $backgroundUrl={backgroundData?.url}>
-      <Input
-        userLocation={userLocation}
-        setUserLocation={setUserLocation}
-        defaultValue={textInputValue}
-      ></Input>
+      <WeatherContainer>
+        <Input
+          userLocation={userLocation}
+          setUserLocation={setUserLocation}
+          defaultValue={textInputValue}
+        />
+        <Weather weathers={weatherData?.weathers} />
+      </WeatherContainer>
     </Container>
   );
 };

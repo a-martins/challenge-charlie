@@ -2,7 +2,7 @@ const weatherIconDictonary: {
   [key: number]: string;
 } = {};
 
-//it's following the weather conditions for the open weather api.
+//It's following the weather conditions for the open weather api.
 //https://openweathermap.org/weather-conditions
 //I'm using meteocons to convert it to icons
 //https://www.alessioatzeni.com/meteocons/

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.div<{ $backgroundUrl?: string }>`
+const MainContainer = styled.div<{ $backgroundUrl?: string }>`
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -14,8 +14,8 @@ const Container = styled.div<{ $backgroundUrl?: string }>`
   background-position: center center;
 `;
 
-const WeatherContainer = styled.div`
+const Container = styled.div`
   width: 25%;
 `;
 
-export { Container, WeatherContainer };
+export { Container, MainContainer };

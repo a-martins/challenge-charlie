@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const TodayContainer = styled.div<{
+const Container = styled.div<{
   $red: string;
   $green: string;
   $blue: string;
@@ -14,7 +14,7 @@ const TodayContainer = styled.div<{
     0.8
   );
   padding-top: 8px;
-  padding-bottom: 8px;
+  padding-bottom: 28px;
 `;
 
 const IconContainer = styled.div`
@@ -24,13 +24,19 @@ const IconContainer = styled.div`
   padding-right: 16px;
 `;
 
+const EmptyContainer = styled.div`
+  display: flex;
+  flex: 6;
+  padding-right: 16px;
+`;
+
 const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 5;
   font-weight: 500;
   color: white;
-  font-size: 22px;
+  font-size: 18px;
   line-height: 24px;
 `;
 
@@ -40,4 +46,10 @@ const SubDetailsContainer = styled.div`
   font-size: 16px;
 `;
 
-export { DetailsContainer, IconContainer, SubDetailsContainer, TodayContainer };
+export {
+  Container,
+  DetailsContainer,
+  EmptyContainer,
+  IconContainer,
+  SubDetailsContainer,
+};

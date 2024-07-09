@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Input from "../../components/Input";
-import Weather from "../../components/Weather";
+import WeatherContainer from "../../components/WeatherContainer";
 import useBackground from "../../queries/useBackground";
 import useCurrentPlaceName from "../../queries/useCurrentPlaceName";
 import useWeather from "../../queries/useWeather";
-import { Container, WeatherContainer } from "./styles";
+import { Container, MainContainer } from "./styles";
 
 export type Coordinates = {
   latitude?: number;
@@ -58,16 +58,16 @@ const Home = () => {
   }, []);
 
   return (
-    <Container id="app" role="main" $backgroundUrl={backgroundData?.url}>
-      <WeatherContainer>
+    <MainContainer id="app" role="main" $backgroundUrl={backgroundData?.url}>
+      <Container>
         <Input
           userLocation={userLocation}
           setUserLocation={setUserLocation}
           defaultValue={textInputValue}
         />
-        <Weather weathers={weatherData?.weathers} />
-      </WeatherContainer>
-    </Container>
+        <WeatherContainer weathers={weatherData?.weathers} />
+      </Container>
+    </MainContainer>
   );
 };
 

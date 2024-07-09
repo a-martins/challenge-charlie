@@ -4,6 +4,7 @@ const Container = styled.div<{
   $red: string;
   $green: string;
   $blue: string;
+  $hasMinHeight: boolean;
 }>`
   display: flex;
   flex-direction: row;
@@ -14,6 +15,7 @@ const Container = styled.div<{
     0.8
   );
   padding-top: 8px;
+  min-height: ${(props) => (props.$hasMinHeight ? "208px" : "74px")};
 `;
 
 const IconContainer = styled.div`

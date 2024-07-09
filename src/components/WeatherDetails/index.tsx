@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { type Weather } from "../../api/weather";
 import Icon from "../../components/Icon";
-import weatherIconDictonary from "../../helpers/WeatherIconDictonaary";
+import { Colors, RGB } from "../../helpers/ColorsShadeDictonary";
+import weatherIconDictonary from "../../helpers/WeatherIconDictonary";
 import {
   Container,
   DetailsContainer,
@@ -9,15 +11,9 @@ import {
   SubDetailsContainer,
 } from "./styles";
 
-type Color = {
-  red: string;
-  green: string;
-  blue: string;
-};
-
 type WeatherDetailsProps = {
-  weather: Weather;
-  color: Color;
+  weather?: Weather;
+  colors: Colors;
   description: string;
   showIcon: boolean;
   showDetails: boolean;
@@ -25,17 +21,33 @@ type WeatherDetailsProps = {
 
 const WeatherDetails = ({
   weather,
-  color,
+  colors,
   description,
   showIcon,
   showDetails,
 }: WeatherDetailsProps) => {
+  const [actualColor, setActualColor] = useState<RGB>(colors.gray);
+
+  useEffect(() => {
+    if (!weather) return setActualColor(colors.gray);
+
+    if (weather.temp <= 15) return setActualColor(colors.blue);
+    else if (weather.temp >= 35) return setActualColor(colors.red);
+    else return setActualColor(colors.yellow);
+  }, [weather]);
+
   return (
-    <Container $red={color.red} $green={color.green} $blue={color.blue}>
+    <Container
+      $red={actualColor.red}
+      $green={actualColor.green}
+      $blue={actualColor.blue}
+      $hasMinHeight={showIcon}
+    >
       {showIcon ? (
         <IconContainer>
           <Icon color="white" size={150}>
-            {weatherIconDictonary[weather.weatherId]}
+            {/* TODO: Check current time to show day/night icons */}
+            {weather && weatherIconDictonary[weather.weatherId]}
           </Icon>
         </IconContainer>
       ) : (
@@ -43,14 +55,14 @@ const WeatherDetails = ({
       )}
       <DetailsContainer>
         <span>{description}</span>
-        <span>{`${weather.temp}${weather.unit}`}</span>
+        <span>{`${weather?.temp}${weather?.unit}`}</span>
         {showDetails ? (
           <>
-            <p>{weather.description}</p>
+            <p>{weather?.description}</p>
             <SubDetailsContainer>
-              <span>Vento: {weather.wind}</span>
-              <span>Humidade: {weather.humidity}</span>
-              <span>Pressão: {weather.pressure}</span>
+              <span>{`${weather ? "Vento: " + weather.wind : ""}`}</span>
+              <span>{`${weather ? "Humidade: " + weather.humidity : ""}`}</span>
+              <span>{`${weather ? "Pressão: " + weather.pressure : ""}`}</span>
             </SubDetailsContainer>
           </>
         ) : null}

@@ -1,6 +1,4 @@
 import { type Weather } from "../../api/weather";
-import weatherIconDictonary from "../../helpers/WeatherIconDictonaary";
-import Icon from "../Icon";
 import WeatherDetails from "../WeatherDetails";
 import { Container } from "./styles";
 
@@ -21,11 +19,7 @@ const WeatherContainer = ({ weathers }: WeatherProps) => {
         showDetails={true}
         description="HOJE"
         color={{ red: "232", green: "183", blue: "20" }}
-      >
-        <Icon color="white" size={150}>
-          {weatherIconDictonary[weathers[0].weatherId]}
-        </Icon>
-      </WeatherDetails>
+      />
       <WeatherDetails
         weather={weathers[1]}
         showIcon={false}

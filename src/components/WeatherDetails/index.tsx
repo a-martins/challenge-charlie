@@ -1,5 +1,7 @@
 import { PropsWithChildren } from "react";
 import { type Weather } from "../../api/weather";
+import Icon from "../../components/Icon";
+import weatherIconDictonary from "../../helpers/WeatherIconDictonaary";
 import {
   Container,
   DetailsContainer,
@@ -33,7 +35,11 @@ const WeatherDetails = ({
   return (
     <Container $red={color.red} $green={color.green} $blue={color.blue}>
       {showIcon ? (
-        <IconContainer>{children}</IconContainer>
+        <IconContainer>
+          <Icon color="white" size={150}>
+            {weatherIconDictonary[weather.weatherId]}
+          </Icon>
+        </IconContainer>
       ) : (
         <EmptyContainer />
       )}

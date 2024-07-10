@@ -2,6 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { type Weather } from "../../api/weather";
 import Icon from "../../components/Icon";
 import {
+  IconSkeleton,
+  WeatherDetailsSkeleton,
+} from "../../components/Skeletons";
+import {
   WeatherContext,
   WeatherContextType,
 } from "../../contexts/WeatherProvider";
@@ -62,29 +66,41 @@ const WeatherDetails = ({
     >
       {showIcon ? (
         <IconContainer>
-          <Icon color="white" size={150}>
-            {/* TODO: Check current time to show day/night icons */}
-            {weather && weatherIconDictonary[weather.weatherId]}
-          </Icon>
+          {weather ? (
+            <>
+              <Icon color="white" size={150}>
+                {/* TODO: Check current time to show day/night icons */}
+                {weather && weatherIconDictonary[weather.weatherId]}
+              </Icon>
+            </>
+          ) : (
+            <IconSkeleton />
+          )}
         </IconContainer>
       ) : (
         <EmptyContainer />
       )}
       <DetailsContainer>
-        <span>{description}</span>
-        <ClickableSpan
-          onClick={unitHandler}
-        >{`${weather?.temp}${weather?.unit}`}</ClickableSpan>
-        {showDetails ? (
+        {weather ? (
           <>
-            <p>{weather?.description}</p>
-            <SubDetailsContainer>
-              <span>{`${weather ? "Vento: " + weather.wind : ""}`}</span>
-              <span>{`${weather ? "Humidade: " + weather.humidity : ""}`}</span>
-              <span>{`${weather ? "Pressão: " + weather.pressure : ""}`}</span>
-            </SubDetailsContainer>
+            <span>{description}</span>
+            <ClickableSpan
+              onClick={unitHandler}
+            >{`${weather.temp}${weather.unit}`}</ClickableSpan>
+            {showDetails ? (
+              <>
+                <p>{weather.description}</p>
+                <SubDetailsContainer>
+                  <span>Vento: {weather.wind}</span>
+                  <span>Humidade: {weather.humidity}</span>
+                  <span>Pressão: {weather.pressure}</span>
+                </SubDetailsContainer>
+              </>
+            ) : null}
           </>
-        ) : null}
+        ) : (
+          <WeatherDetailsSkeleton showDetails={showDetails} />
+        )}
       </DetailsContainer>
     </Container>
   );

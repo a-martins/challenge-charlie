@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { type Weather } from "../../api/weather";
 import Icon from "../../components/Icon";
+import {
+  WeatherContext,
+  WeatherContextType,
+} from "../../contexts/WeatherProvider";
 import { Colors, RGB } from "../../helpers/ColorsShadeDictonary";
 import weatherIconDictonary from "../../helpers/WeatherIconDictonary";
 import {
+  ClickableSpan,
   Container,
   DetailsContainer,
   EmptyContainer,
@@ -28,11 +33,23 @@ const WeatherDetails = ({
 }: WeatherDetailsProps) => {
   const [actualColor, setActualColor] = useState<RGB>(colors.gray);
 
+  const { unit, setUnit } = useContext(WeatherContext) as WeatherContextType;
+
+  const unitHandler = () => {
+    if (unit === "metric") setUnit("imperial");
+    else setUnit("metric");
+  };
+
   useEffect(() => {
     if (!weather) return setActualColor(colors.gray);
 
-    if (weather.temp <= 15) return setActualColor(colors.blue);
-    else if (weather.temp >= 35) return setActualColor(colors.red);
+    let temp = weather.temp;
+    let unit = weather.unit;
+
+    if ((unit === "°C" && temp <= 15) || (unit === "°F" && temp <= 60))
+      return setActualColor(colors.blue);
+    else if ((unit === "°C" && temp >= 35) || (unit === "°F" && temp >= 95))
+      return setActualColor(colors.red);
     else return setActualColor(colors.yellow);
   }, [weather]);
 
@@ -55,7 +72,9 @@ const WeatherDetails = ({
       )}
       <DetailsContainer>
         <span>{description}</span>
-        <span>{`${weather?.temp}${weather?.unit}`}</span>
+        <ClickableSpan
+          onClick={unitHandler}
+        >{`${weather?.temp}${weather?.unit}`}</ClickableSpan>
         {showDetails ? (
           <>
             <p>{weather?.description}</p>

@@ -4,7 +4,7 @@ import getWeathersByGeoCode, { WeatherList } from "../../api/weather";
 export type WeatherQuery = {
   latitude?: number;
   longitude?: number;
-  unit?: "metric" | "imperial";
+  unit?: string;
 };
 
 const useWeather = (query: WeatherQuery | undefined) => {

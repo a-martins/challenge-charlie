@@ -48,7 +48,12 @@ const SubDetailsContainer = styled.div`
   font-size: 16px;
 `;
 
+const ClickableSpan = styled.span`
+  cursor: pointer;
+`;
+
 export {
+  ClickableSpan,
   Container,
   DetailsContainer,
   EmptyContainer,

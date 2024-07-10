@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import Input from "../../components/Input";
 import WeatherContainer from "../../components/WeatherContainer";
 import {
-  UserLocationContext,
-  UserLocationContextType,
-} from "../../contexts/UserLocationProvider";
+  WeatherContext,
+  WeatherContextType,
+} from "../../contexts/WeatherProvider";
 import useBackground from "../../queries/useBackground";
 import useCurrentPlaceName from "../../queries/useCurrentPlaceName";
 import useWeather from "../../queries/useWeather";
@@ -12,11 +12,10 @@ import { Container, MainContainer } from "./styles";
 
 const Home = () => {
   const [textInputValue, setTextInputValue] = useState<string>("");
-  const [unit] = useState<"metric" | "imperial">("metric");
 
-  const { coordinates, setCoordinates } = useContext(
-    UserLocationContext
-  ) as UserLocationContextType;
+  const { coordinates, setCoordinates, unit } = useContext(
+    WeatherContext
+  ) as WeatherContextType;
 
   const { data: backgroundData } = useBackground();
   const { data: locationData } = useCurrentPlaceName({

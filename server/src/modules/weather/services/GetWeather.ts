@@ -45,9 +45,11 @@ class GetWeather {
                   temp: +item.main.temp.toFixed(0),
                   unit: units === "metric" ? "°C" : "°F",
                   description: UpperCaseConverter(item.weather[0].description),
-                  wind: `${ConvertToDirection(
-                    item.wind.deg
-                  )} ${item.wind.speed.toFixed(1)}km/h`,
+                  wind: `${ConvertToDirection(item.wind.deg)} ${
+                    units === "metric"
+                      ? (item.wind.speed * 3.6).toFixed(1)
+                      : item.wind.speed.toFixed(1)
+                  }${units === "metric" ? "km/h" : "mph"}`,
                   humidity: `${item.main.humidity}%`,
                   pressure: `${item.main.pressure}hPA`,
                 };

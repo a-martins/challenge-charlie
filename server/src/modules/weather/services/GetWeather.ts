@@ -4,8 +4,9 @@ import UpperCaseConverter from "@shared/helpers/functions/UpperCaseConverter";
 const axios = require("axios").default;
 
 type Request = {
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
+  query?: string;
   units: "metric" | "imperial";
 };
 
@@ -27,16 +28,21 @@ class GetWeather {
   public execute({
     latitude,
     longitude,
+    query,
     units,
   }: Request): Promise<WeatherResponse> {
     return new Promise<WeatherResponse>(async (resolve, reject) => {
       try {
-        const url = process.env.REACT_APP_OPEN_WEATHER_URL as string;
-        const apiKey = process.env.REACT_APP_OPEN_WEATHER_APIKEY as string;
+        let url = process.env.REACT_APP_OPEN_WEATHER_URL as string;
+        let apiKey = process.env.REACT_APP_OPEN_WEATHER_APIKEY as string;
+        let baseParams = `appid=${apiKey}&units=${units}&cnt=3&lang=pt_br`;
+
+        if (query && !latitude && !longitude)
+          baseParams = baseParams + `&q=${query}`;
+        else baseParams = baseParams + `&lat=${latitude}&lon=${longitude}`;
+
         const response = (await axios
-          .get(
-            `${url}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}&cnt=3&lang=pt_br`
-          )
+          .get(`${url}?${baseParams}`)
           .then((response) => {
             if (response.status === 200) {
               let formattedData = response.data?.list.map((item) => {
@@ -57,14 +63,21 @@ class GetWeather {
               return {
                 weathers: formattedData,
               };
-            } else {
-              throw new Error("Error getting Weather");
             }
           })) as WeatherResponse;
+
         resolve(response);
-      } catch (error) {
-        console.error(error);
-        reject(error);
+      } catch (error: any) {
+        if (axios.isAxiosError(error)) {
+          console.error(error.response.data.message);
+          reject(error);
+        } else if (error instanceof Error) {
+          console.error(error.message);
+          reject(error);
+        } else {
+          console.error("Unexpected error");
+          reject(new Error("Unexpected error"));
+        }
       }
     });
   }

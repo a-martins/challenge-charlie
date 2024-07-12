@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Input from "../../components/Input";
 import WeatherContainer from "../../components/WeatherContainer";
 import {
@@ -11,20 +11,18 @@ import useWeather from "../../queries/useWeather";
 import { Container, MainContainer } from "./styles";
 
 const Home = () => {
-  const [textInputValue, setTextInputValue] = useState<string>("");
-
-  const { coordinates, setCoordinates, unit } = useContext(
-    WeatherContext
-  ) as WeatherContextType;
+  const { coordinates, setCoordinates, unit, location, setLocation } =
+    useContext(WeatherContext) as WeatherContextType;
 
   const { data: backgroundData } = useBackground();
+
   const { data: locationData } = useCurrentPlaceName({
     latitude: coordinates?.latitude,
     longitude: coordinates?.longitude,
   });
+
   const { data: weatherData } = useWeather({
-    latitude: coordinates?.latitude,
-    longitude: coordinates?.longitude,
+    query: location,
     unit: unit,
   });
 
@@ -36,21 +34,25 @@ const Home = () => {
           setCoordinates({ latitude, longitude });
         },
         (error) => {
-          setTextInputValue("Error getting user location");
+          //TODO: Added Toast Notification
+          //setTextInputValue("Error getting user location");
           console.error("Error getting user location", error);
         }
       );
     } else {
-      setTextInputValue("Error getting user location");
+      //TODO: Added Toast Notification
+      //setTextInputValue("Error getting user location");
       console.error("Geolocation is not supported by this browser.");
     }
   };
 
   useEffect(() => {
     if (locationData) {
-      setTextInputValue(`${locationData.city}, ${locationData.state}`);
+      setLocation(
+        `${locationData.city}, ${locationData.state}, ${locationData.country}`
+      );
     } else {
-      setTextInputValue("");
+      setLocation("");
     }
   }, [locationData]);
 
@@ -61,7 +63,7 @@ const Home = () => {
   return (
     <MainContainer id="app" role="main" $backgroundUrl={backgroundData?.url}>
       <Container>
-        <Input defaultValue={textInputValue} />
+        <Input />
         <WeatherContainer weathers={weatherData?.weathers} />
       </Container>
     </MainContainer>

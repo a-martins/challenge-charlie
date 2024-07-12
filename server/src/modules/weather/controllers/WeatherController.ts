@@ -7,13 +7,11 @@ export default class WeatherController {
     request: Request,
     response: Response
   ): Promise<Response | undefined> {
-    const { latitude, longitude, unit, query } = request.query;
+    const { unit, query } = request.query;
     const getWeather = new GetWeather();
 
     try {
       const weather = await getWeather.execute({
-        latitude: parseFloat(latitude as string),
-        longitude: parseFloat(longitude as string),
         units: unit as "metric" | "imperial",
         query: query as string,
       });

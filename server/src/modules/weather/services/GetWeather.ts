@@ -4,9 +4,7 @@ import UpperCaseConverter from "@shared/helpers/functions/UpperCaseConverter";
 const axios = require("axios").default;
 
 type Request = {
-  latitude?: number;
-  longitude?: number;
-  query?: string;
+  query: string;
   units: "metric" | "imperial";
 };
 
@@ -25,21 +23,12 @@ type WeatherResponse = {
 };
 
 class GetWeather {
-  public execute({
-    latitude,
-    longitude,
-    query,
-    units,
-  }: Request): Promise<WeatherResponse> {
+  public execute({ query, units }: Request): Promise<WeatherResponse> {
     return new Promise<WeatherResponse>(async (resolve, reject) => {
       try {
         let url = process.env.REACT_APP_OPEN_WEATHER_URL as string;
         let apiKey = process.env.REACT_APP_OPEN_WEATHER_APIKEY as string;
-        let baseParams = `appid=${apiKey}&units=${units}&cnt=3&lang=pt_br`;
-
-        if (query && !latitude && !longitude)
-          baseParams = baseParams + `&q=${query}`;
-        else baseParams = baseParams + `&lat=${latitude}&lon=${longitude}`;
+        let baseParams = `appid=${apiKey}&q=${query}&units=${units}&cnt=3&lang=pt_br`;
 
         const response = (await axios
           .get(`${url}?${baseParams}`)

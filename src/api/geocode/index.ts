@@ -3,7 +3,7 @@ import { QueryKey, QueryOptions } from "react-query";
 export type PlaceName = {
   city: string;
   state: string;
-  contry: string;
+  country: string;
 };
 
 const getPlaceName = ({ queryKey }: QueryOptions): Promise<PlaceName> => {

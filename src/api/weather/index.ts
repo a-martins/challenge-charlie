@@ -14,15 +14,13 @@ export type WeatherList = {
   weathers: Array<Weather>;
 };
 
-const getWeathersByGeoCode = ({
-  queryKey,
-}: QueryOptions): Promise<WeatherList> => {
-  const [_, latitude, longitude, unit] = queryKey as QueryKey;
+const getWeathers = ({ queryKey }: QueryOptions): Promise<WeatherList> => {
+  const [_, query, unit] = queryKey as QueryKey;
   return new Promise<WeatherList>((resolve, reject) => {
     return fetch(
       `${
         process.env.REACT_APP_API_BASE_URL as string
-      }/weather?latitude=${latitude}&longitude=${longitude}&unit=${unit}`
+      }/weather?query=${query}&unit=${unit}`
     )
       .then((res) => {
         return res.json();
@@ -36,4 +34,4 @@ const getWeathersByGeoCode = ({
   });
 };
 
-export default getWeathersByGeoCode;
+export default getWeathers;

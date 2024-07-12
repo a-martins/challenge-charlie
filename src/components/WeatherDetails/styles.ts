@@ -15,6 +15,7 @@ const Container = styled.div<{
     0.8
   );
   padding-top: 8px;
+  padding-button: 8px;
   min-height: ${(props) => (props.$hasMinHeight ? "208px" : "74px")};
 `;
 
@@ -22,6 +23,7 @@ const IconContainer = styled.div`
   display: flex;
   flex: 6;
   justify-content: center;
+  align-items: center;
   padding-right: 16px;
 `;
 

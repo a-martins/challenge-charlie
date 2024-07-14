@@ -16,6 +16,9 @@ const MainContainer = styled.div<{ $backgroundUrl?: string }>`
   -moz-animation: fadein 3s; /* Firefox */
   -webkit-animation: fadein 3s; /* Safari and Chrome */
   -o-animation: fadein 3s; /* Opera */
+  @media (max-width: 480px) {
+    width: 100%;
+  }
   @keyframes fadein {
     from {
       opacity: 0;
@@ -55,6 +58,11 @@ const MainContainer = styled.div<{ $backgroundUrl?: string }>`
 
 const Container = styled.div`
   width: 25%;
+  min-width: 480px;
+  @media only screen and (max-width: 480px) {
+    width: 100%;
+    min-width: 0px;
+  }
 `;
 
 export { Container, MainContainer };

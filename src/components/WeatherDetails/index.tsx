@@ -26,6 +26,7 @@ type WeatherDetailsProps = {
   description: string;
   showIcon: boolean;
   showDetails: boolean;
+  isLoading: boolean;
 };
 
 const WeatherDetails = ({
@@ -34,6 +35,7 @@ const WeatherDetails = ({
   description,
   showIcon,
   showDetails,
+  isLoading,
 }: WeatherDetailsProps) => {
   const [actualColor, setActualColor] = useState<RGB>(colors.gray);
 
@@ -50,7 +52,7 @@ const WeatherDetails = ({
     let temp = weather.temp;
     let unit = weather.unit;
 
-    if ((unit === "°C" && temp <= 15) || (unit === "°F" && temp <= 60))
+    if ((unit === "°C" && temp <= 15) || (unit === "°F" && temp <= 59))
       return setActualColor(colors.blue);
     else if ((unit === "°C" && temp >= 35) || (unit === "°F" && temp >= 95))
       return setActualColor(colors.red);
@@ -66,27 +68,29 @@ const WeatherDetails = ({
     >
       {showIcon ? (
         <IconContainer>
-          {weather ? (
+          {isLoading ? (
+            <IconSkeleton />
+          ) : weather ? (
             <>
               <Icon color="white" size={150}>
                 {/* TODO: Check current time to show day/night icons */}
                 {weather && weatherIconDictonary[weather.weatherId]}
               </Icon>
             </>
-          ) : (
-            <IconSkeleton />
-          )}
+          ) : null}
         </IconContainer>
       ) : (
         <EmptyContainer />
       )}
       <DetailsContainer>
-        {weather ? (
+        {isLoading ? (
+          <WeatherDetailsSkeleton showDetails={showDetails} />
+        ) : weather ? (
           <>
             <span>{description}</span>
-            <ClickableSpan
-              onClick={unitHandler}
-            >{`${weather.temp}${weather.unit}`}</ClickableSpan>
+            <ClickableSpan onClick={unitHandler}>{`${weather.temp.toFixed(0)}${
+              weather.unit
+            }`}</ClickableSpan>
             {showDetails ? (
               <>
                 <p>{weather.description}</p>
@@ -98,9 +102,7 @@ const WeatherDetails = ({
               </>
             ) : null}
           </>
-        ) : (
-          <WeatherDetailsSkeleton showDetails={showDetails} />
-        )}
+        ) : null}
       </DetailsContainer>
     </Container>
   );

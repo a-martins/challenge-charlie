@@ -1,4 +1,6 @@
 import { useContext, useEffect } from "react";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import Input from "../../components/Input";
 import WeatherContainer from "../../components/WeatherContainer";
 import {
@@ -21,10 +23,33 @@ const Home = () => {
     longitude: coordinates?.longitude,
   });
 
-  const { data: weatherData } = useWeather({
+  const {
+    data: weatherData,
+    isLoading: weatherIsLoading,
+    error,
+  } = useWeather({
     query: location,
     unit: unit,
   });
+
+  useEffect(() => {
+    if (!weatherData && !weatherIsLoading && error)
+      notifyError((error as Error).message);
+  }, [weatherData, weatherIsLoading, error]);
+
+  const notifyError = (message: string) => {
+    toast.error(message, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+  };
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
@@ -34,15 +59,11 @@ const Home = () => {
           setCoordinates({ latitude, longitude });
         },
         (error) => {
-          //TODO: Added Toast Notification
-          //setTextInputValue("Error getting user location");
-          console.error("Error getting user location", error);
+          notifyError("Error getting user location");
         }
       );
     } else {
-      //TODO: Added Toast Notification
-      //setTextInputValue("Error getting user location");
-      console.error("Geolocation is not supported by this browser.");
+      notifyError("Geolocation is not supported by this browser.");
     }
   };
 
@@ -64,8 +85,12 @@ const Home = () => {
     <MainContainer id="app" role="main" $backgroundUrl={backgroundData?.url}>
       <Container>
         <Input />
-        <WeatherContainer weathers={weatherData?.weathers} />
+        <WeatherContainer
+          weathers={weatherData?.weathers}
+          isLoading={weatherIsLoading}
+        />
       </Container>
+      <ToastContainer />
     </MainContainer>
   );
 };

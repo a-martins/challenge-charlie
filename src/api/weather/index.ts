@@ -1,5 +1,7 @@
 import { QueryKey, QueryOptions } from "react-query";
 
+const axios = require("axios").default;
+
 export type Weather = {
   weatherId: number;
   temp: number;
@@ -17,19 +19,30 @@ export type WeatherList = {
 const getWeathers = ({ queryKey }: QueryOptions): Promise<WeatherList> => {
   const [_, query, unit] = queryKey as QueryKey;
   return new Promise<WeatherList>((resolve, reject) => {
-    return fetch(
-      `${
-        process.env.REACT_APP_API_BASE_URL as string
-      }/weather?query=${query}&unit=${unit}`
-    )
-      .then((res) => {
-        return res.json();
+    return axios
+      .get(
+        `${
+          process.env.REACT_APP_API_BASE_URL as string
+        }/weather?query=${query}&unit=${unit}`
+      )
+      .then((res: { data: any }) => {
+        return res.data;
       })
-      .then((weathers) => {
+      .then((weathers: WeatherList | PromiseLike<WeatherList>) => {
         return resolve(weathers);
       })
-      .catch((error) => {
-        return reject(error);
+      .catch((error: any) => {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 404) {
+            return reject(new Error(error.response?.data.message));
+          } else {
+            return reject(error);
+          }
+        } else if (error instanceof Error) {
+          return reject(error);
+        } else {
+          return reject("Unexpected error");
+        }
       });
   });
 };

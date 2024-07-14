@@ -37,7 +37,7 @@ class GetWeather {
               let formattedData = response.data?.list.map((item) => {
                 return {
                   weatherId: item.weather[0].id,
-                  temp: +item.main.temp.toFixed(0),
+                  temp: +item.main.temp,
                   unit: units === "metric" ? "°C" : "°F",
                   description: UpperCaseConverter(item.weather[0].description),
                   wind: `${ConvertToDirection(item.wind.deg)} ${

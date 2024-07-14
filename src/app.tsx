@@ -1,10 +1,9 @@
 import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { WeatherProvider } from "./contexts/WeatherProvider";
+import queryClient from "./queries/QueryClient";
 import Router from "./routes/Router";
-
-const queryClient = new QueryClient();
 
 export default class App extends React.Component {
   render() {

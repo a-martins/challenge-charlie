@@ -1,15 +1,22 @@
+import type { HTMLAttributes } from "react";
 import { PropsWithChildren } from "react";
 import { IconContainer } from "./styles";
 
-type IconProps = {
+interface IconProps extends HTMLAttributes<HTMLSpanElement> {
   size?: number;
   color?: string;
-};
+  clickable?: boolean;
+}
 
 const Icon = (props: PropsWithChildren<IconProps>) => {
-  const { size, color } = props;
+  const { size, color, clickable = false, ...otherProps } = props;
   return (
-    <IconContainer $size={size} $color={color}>
+    <IconContainer
+      $size={size}
+      $color={color}
+      $clickable={clickable}
+      {...otherProps}
+    >
       {props.children}
     </IconContainer>
   );

@@ -29,7 +29,6 @@ const config: Config = {
     "!**/*.d.ts",
     "!**/node_modules/**",
     "!**/src/api/**",
-    "!**/src/components/**",
     "!**/src/pages/**",
     "!**/server/**",
     "!**/vendor/**",
@@ -168,10 +167,12 @@ const config: Config = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jsdom",
+  testEnvironment: "./jest.environment.js",
 
   // Options that will be passed to the testEnvironment
-  // testEnvironmentOptions: {},
+  testEnvironmentOptions: {
+    customExportConditions: [""],
+  },
 
   // Adds a location field to test results
   // testLocationInResults: false,

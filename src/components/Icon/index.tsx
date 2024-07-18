@@ -12,6 +12,7 @@ const Icon = (props: PropsWithChildren<IconProps>) => {
   const { size, color, clickable = false, ...otherProps } = props;
   return (
     <IconContainer
+      data-testid="icon"
       $size={size}
       $color={color}
       $clickable={clickable}

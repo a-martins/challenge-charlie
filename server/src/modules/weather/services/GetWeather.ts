@@ -24,13 +24,13 @@ type WeatherResponse = {
 
 class GetWeather {
   public execute({ query, units }: Request): Promise<WeatherResponse> {
-    return new Promise<WeatherResponse>(async (resolve, reject) => {
+    return new Promise<WeatherResponse>((resolve, reject) => {
       try {
         let url = process.env.REACT_APP_OPEN_WEATHER_URL as string;
         let apiKey = process.env.REACT_APP_OPEN_WEATHER_APIKEY as string;
         let baseParams = `appid=${apiKey}&q=${query}&units=${units}&cnt=3&lang=pt_br`;
 
-        const response = (await axios
+        const response = (axios
           .get(`${url}?${baseParams}`)
           .then((response) => {
             if (response.status === 200) {

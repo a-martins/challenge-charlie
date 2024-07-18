@@ -13,11 +13,11 @@ type PlaceName = {
 
 class GetPlaceName {
   public execute({ latitude, longitude }: Request): Promise<PlaceName> {
-    return new Promise<PlaceName>(async (resolve, reject) => {
+    return new Promise<PlaceName>((resolve, reject) => {
       try {
         const url = process.env.REACT_APP_OPENCAGE_GEOCODE_URL as string;
         const apiKey = process.env.REACT_APP_OPENCAGE_APIKEY as string;
-        const response = (await axios
+        const response = (axios
           .get(`${url}?q=${latitude},${longitude}&key=${apiKey}&pretty=1`)
           .then((response) => {
             if (response.status === 200) {

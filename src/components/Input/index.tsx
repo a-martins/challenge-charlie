@@ -49,6 +49,7 @@ const Input = () => {
         defaultValue={location}
         onBlur={(e) => setLocation(e.target.value)}
         onKeyDown={handleKeyPress}
+        placeholder="Digite um local..."
       />
     </InputContainer>
   );

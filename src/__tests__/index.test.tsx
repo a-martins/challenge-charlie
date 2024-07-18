@@ -1,3 +1,4 @@
+import { act } from "react";
 import ReactDOM from "react-dom/client";
 import App from "../app";
 
@@ -14,7 +15,9 @@ describe("Root DOM", () => {
     let root = document.createElement("div");
     root.id = "root";
     document.body.append(root);
-    require("../index.tsx");
+    act(() => {
+      require("../index.tsx");
+    });
     expect(ReactDOM.createRoot).toHaveBeenCalledWith(root);
     expect(rootMock.render).toHaveBeenCalledWith(<App />);
   });

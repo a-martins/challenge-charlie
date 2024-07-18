@@ -23,7 +23,8 @@ services:
     container_name: weather-client
     tty: true
     volumes:
-      - client_node_modules:/usr/src/weather-client/node_modules
+      - .:/usr/src/weather-client/
+      - /usr/src/weather-client/node_modules
     networks:
       - node-network
     ports:

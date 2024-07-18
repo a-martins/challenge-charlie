@@ -1,4 +1,4 @@
-FROM node:18.20-alpine3.20
+FROM node:18.20.4-slim
 
 WORKDIR /usr/src/weather-client
 
@@ -9,8 +9,8 @@ RUN rm -rf package-lock.json
 
 COPY package*.json ./
 
-RUN apk update && \
-    apk add ca-certificates wget npm curl && \
+RUN apt update && \
+    apt install -y ca-certificates wget npm curl && \
     update-ca-certificates && \
     npm install -g dotenv-cli
 

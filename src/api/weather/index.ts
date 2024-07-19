@@ -34,7 +34,7 @@ const getWeathers = ({ queryKey }: QueryOptions): Promise<WeatherList> => {
       .catch((error: any) => {
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 404) {
-            return reject(new Error(error.response?.data.message));
+            return reject(new Error("Cidade não encontrada!"));
           } else {
             return reject(error);
           }

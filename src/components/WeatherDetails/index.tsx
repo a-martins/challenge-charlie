@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
 import { type Weather } from "../../api/weather";
 import Icon from "../../components/Icon";
 import {
@@ -88,9 +89,14 @@ const WeatherDetails = ({
         ) : weather ? (
           <>
             <span>{description}</span>
-            <ClickableSpan onClick={unitHandler}>{`${weather.temp.toFixed(0)}${
-              weather.unit
-            }`}</ClickableSpan>
+            <ClickableSpan
+              data-tooltip-id="conversor-tooltip"
+              data-tooltip-content="Clique para converter de °C para °F."
+              data-tooltip-place="right"
+              data-tooltip-offset={-160}
+              data-tooltip-variant="light"
+              onClick={unitHandler}
+            >{`${weather.temp.toFixed(0)}${weather.unit}`}</ClickableSpan>
             {showDetails ? (
               <>
                 <p>{weather.description}</p>
@@ -104,6 +110,7 @@ const WeatherDetails = ({
           </>
         ) : null}
       </DetailsContainer>
+      <Tooltip id="conversor-tooltip" />
     </Container>
   );
 };

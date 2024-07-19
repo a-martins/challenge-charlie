@@ -52,6 +52,7 @@ const SubDetailsContainer = styled.div`
 
 const ClickableSpan = styled.span`
   cursor: pointer;
+  text-decoration-line: underline;
 `;
 
 export {

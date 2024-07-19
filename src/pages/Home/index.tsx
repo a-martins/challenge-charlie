@@ -1,6 +1,5 @@
 import { useContext, useEffect } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
 import Input from "../../components/Input";
 import WeatherContainer from "../../components/WeatherContainer";
 import {

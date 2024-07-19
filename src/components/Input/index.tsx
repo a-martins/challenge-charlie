@@ -1,4 +1,5 @@
 import { useContext, useRef } from "react";
+import { Tooltip } from "react-tooltip";
 import { PlaceName } from "../../api/geocode";
 import {
   WeatherContext,
@@ -40,7 +41,17 @@ const Input = () => {
 
   return (
     <InputContainer>
-      <Icon color="gray" size={32} clickable={true} onClick={getUserLocation}>
+      <Icon
+        data-tooltip-id="location-tooltip"
+        data-tooltip-content="Clique selecionar a localização atual."
+        data-tooltip-place="top"
+        //data-tooltip-offset={-160}
+        data-tooltip-variant="light"
+        color="gray"
+        size={32}
+        clickable={true}
+        onClick={getUserLocation}
+      >
         (
       </Icon>
       <InputField
@@ -51,6 +62,7 @@ const Input = () => {
         onKeyDown={handleKeyPress}
         placeholder="Digite um local..."
       />
+      <Tooltip id="location-tooltip" />
     </InputContainer>
   );
 };

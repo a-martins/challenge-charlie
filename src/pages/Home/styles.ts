@@ -17,7 +17,8 @@ const MainContainer = styled.div<{ $backgroundUrl?: string }>`
   -webkit-animation: fadein 3s; /* Safari and Chrome */
   -o-animation: fadein 3s; /* Opera */
   @media (max-width: 480px) {
-    width: 100%;
+    width: 98%;
+    padding: 0px 1%;
   }
   @keyframes fadein {
     from {

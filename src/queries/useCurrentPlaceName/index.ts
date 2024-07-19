@@ -11,6 +11,7 @@ const useCurrentPlaceName = (query: PlaceQuery | undefined) => {
     queryKey: ["currentPlaceName", query?.latitude, query?.longitude],
     queryFn: getPlaceName,
     staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
     enabled: !!query?.latitude && !!query?.longitude,
   });
 };

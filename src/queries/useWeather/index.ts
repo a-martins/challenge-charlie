@@ -14,6 +14,7 @@ const useWeather = (props: WeatherProps | undefined) => {
     staleTime: 5 * 60 * 1000,
     enabled: !!props?.query,
     retry: false,
+    refetchOnWindowFocus: false,
   });
 };
 

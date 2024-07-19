@@ -79,7 +79,7 @@ npm run test:coverage
 Execute os teste para verificar possíveis falhas.
 
 ```
-npm run test:coverage
+npm run test
 ```
 
 ### ⌨️ Atualização do snapshot
